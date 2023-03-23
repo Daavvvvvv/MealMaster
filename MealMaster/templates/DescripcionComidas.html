@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<H1>TUS DIETAS</H1>
+
+<P></P>
+
+<!-- <div class="row col-12 justify-content-end mb-2 pr-0">
+    <button type="button" class="btn btn-success col-md-3">Agregar nuevo alimento</button>
+    <a class="btn btn-success col-md-3"  href=""></a> 
+</div> -->
+
+<p></p>
+
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Calorias</th>
+        <th scope="col">Descripcion</th>
+        
+        </tr>
+        <!-- <button type="button" class="btn btn-success col-md-3">Agregar nuevo alimento</button> -->
+    </thead>
+    
+    <tbody>
+        
+    {% for comida in alimentos %}
+    
+        <tr>
+        <th scope="row">{{ comida.id }}</th>
+        <td>{{ comida.nombre }}</td>
+        <td>{{ comida.calorias}}</td>
+        <td>{{ comida.descripcion}}</td>
+        </tr>
+        {% endfor %}
+        <!-- <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        </tr>
+        <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        </tr> -->
+    </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+
+body{
+    font: italic small-caps bold 16px/2 cursive;
+    height: 125vh;
+    margin-top: 80px;
+    background:rgba(0, 0, 0, 0.7)url("../img/bgHome.png");
+    background-blend-mode: darken;
+    background-size: cover;
+
+}
+
+
+
+
+header{ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+header * {
+    display: inline;
+}
+
+header li {
+    margin: 25px;
+}
+
+header li a {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 85px;
+    
+}
+
+h4 {
+    color: white;
+    text-align: center;
+}

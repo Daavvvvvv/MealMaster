@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}MealMaster{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Meal Master</h1>
+<h4>¡Mejora tu salud con nosotros!</h4>
+<header>
+    <nav>
+        <ul>    
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a href="#">Trainings</a>
+            </li>
+            <li>
+                <a href="{% url 'listarDietas'%}">Meal plans</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+{% endblock  %}
