@@ -5,31 +5,44 @@
 
 <H1>TUS DIETAS</H1>
 
-<P></P>
-
-<!-- <div class="row col-12 justify-content-end mb-2 pr-0">
-    <button type="button" class="btn btn-success col-md-3">Agregar nuevo alimento</button>
-    <a class="btn btn-success col-md-3"  href=""></a> 
-</div> -->
-
-<p></p>
-
-<form method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="Submit" />
+<form>
+    <input type="button" class="btn btn-success" value="Ver Dietas" onclick="history.back()">
 </form>
+<br>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Modificar dieta
+  </button>
+  
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar dieta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <a href="http://127.0.0.1:8000/modificarDieta/agregarDieta/{{dieta}}" class="btn btn-info">Agregar Alimento</a>
+                <a href="http://127.0.0.1:8000/modificarDieta/eliminarDieta/{{dieta}}" class="btn btn-danger">Eliminar Alimento</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <table class="table">
     <thead>
         <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Calorias</th>
-        <th scope="col">Descripcion</th>
-        
+            
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Calorias</th>
+            <th scope="col">Descripcion</th>
         </tr>
-        <!-- <button type="button" class="btn btn-success col-md-3">Agregar nuevo alimento</button> -->
     </thead>
     
     <tbody>
@@ -37,24 +50,14 @@
     {% for comida in alimentos %}
     
         <tr>
-        <th scope="row">{{ comida.id }}</th>
-        <td>{{ comida.nombre }}</td>
-        <td>{{ comida.calorias}}</td>
-        <td>{{ comida.descripcion}}</td>
+            <th scope="row">{{ comida.id }}</th>
+            <td>{{ comida.nombre }}</td>
+            <td>{{ comida.calorias}}</td>
+            <td>{{ comida.descripcion}}</td>
         </tr>
-        {% endfor %}
-        <!-- <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        </tr>
-        <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-        </tr> -->
+    {% endfor %}
+
     </tbody>
-    </table>
+</table>
 
 {% endblock %}

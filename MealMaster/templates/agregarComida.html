@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr> 
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Calorias</th>
+            <th scope="col">Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for comida in alimentos %}
+        <tr>
+            <th scope="row">{{ comida.id }}</th>
+            <td>{{ comida.nombre }}</td>
+            <td>{{ comida.calorias}}</td>
+            <td>{{ comida.descripcion}}</td>
+            <td><a href="http://127.0.0.1:8000/modificarDieta/agregarComida/{{comida.id}}/{{dieta}}" class="btn btn-success">Agregar</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock content %}

@@ -24,5 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('dietas/', views.listarDietas, name='listarDietas'),
-    path('alimentos/', views.listarAlimentos, name='DescripcionComidas')
+    path('dietas/alimentos/<str:idDieta>/', views.listarAlimentos, name='DescripcionComidas'),
+    path('modificarDieta/agregarDieta/<str:idDieta>/', views.agregarADieta, name="agregarADieta"),
+    path('modificarDieta/agregarComida/<str:idComida>/<str:idDieta>/', views.agregarComida, name="agregarComida"),
+    path('modificarDieta/eliminarDieta/<str:idDieta>/', views.eliminarAdieta, name="eliminarAdieta"),
+    path('modificarDieta/eliminarComida/<str:idComida>/<str:idDieta>/', views.eliminarComida, name="eliminarComida"),
+
 ] 
