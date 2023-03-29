@@ -19,17 +19,17 @@ def listarAlimentos(request, idDieta):
     dietas = mostrarDietas()
     nombre = ""
     for i in dietas:
-        texto = str(i.nombre)
-        if texto == idDieta:
-            nombre = texto
+        nombreDieta = str(i.nombre)
+        if nombreDieta == idDieta:
+            nombre = nombreDieta
             break
     idComidas = []
 
     dietacomidaquery = comidaDieta.objects.all()
 
     for i in dietacomidaquery:
-        texto = str(i.dieta)
-        if texto == idDieta:
+        nombreDieta = str(i.dieta)
+        if nombreDieta == idDieta:
             idComidas.append(i.comida)
         else:
             pass
@@ -43,8 +43,8 @@ def agregarADieta(request, idDieta):
     comida = mostrarComidas()
     dietacomidaquery = comidaDieta.objects.all()
     for i in dietacomidaquery:
-        texto = str(i.dieta)
-        if texto == idDieta:
+        nombreDieta = str(i.dieta)
+        if nombreDieta == idDieta:
             idComidas.append(i.comida)
         else:
             pass
@@ -71,13 +71,13 @@ def agregarADieta(request, idDieta):
 def agregarComida(request, idComida, idDieta):
     dietas = mostrarDietas()
     listaComidas = mostrarComidas()
-    hola = None
+    dietaID = None
     for i in dietas:
-        texto = str(i.nombre)
-        if texto == idDieta:
-            hola = i.id
+        nombreDieta = str(i.nombre)
+        if nombreDieta == idDieta:
+            dietaID = i.id
             break
-    objDieta = dieta.objects.get(id=hola)
+    objDieta = dieta.objects.get(id=dietaID)
     objComida = comidas.objects.get(id=idComida)
     CDInstance = comidaDieta.objects.create(comida=objComida,dieta=objDieta)
     CDInstance.save()
@@ -89,8 +89,8 @@ def eliminarAdieta(request, idDieta):
     dietacomidaquery = mostrarComidaDieta()
 
     for i in dietacomidaquery:
-        texto = str(i.dieta)
-        if texto == idDieta:
+        nombreDieta = str(i.dieta)
+        if nombreDieta == idDieta:
             idComidas.append(i.comida)
         else:
             pass
@@ -99,13 +99,13 @@ def eliminarAdieta(request, idDieta):
 
 def eliminarComida(request, idComida, idDieta):
     dietas = mostrarDietas()
-    hola = None
+    dietaID = None
     for i in dietas:
-        texto = str(i.nombre)
-        if texto == idDieta:
-            hola = i.id
+        nombreDieta = str(i.nombre)
+        if nombreDieta == idDieta:
+            dietaID = i.id
             break
-    CDInstance = comidaDieta.objects.get(comida=idComida,dieta=hola)
+    CDInstance = comidaDieta.objects.get(comida=idComida,dieta=dietaID)
     CDInstance.delete()
     print(CDInstance)
     return render(request, 'comidaEliminada.html', {})
