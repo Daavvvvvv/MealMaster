@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr> 
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for ejercicio in ejercicios %}
+        <tr>
+            <th scope="row">{{ ejercicio.id }}</th>
+            <td>{{ ejercicio.nombre }}</td>
+            <td><a href="http://127.0.0.1:8000/modificarRutina/eliminarEjercicio/{{ejercicio.id}}/{{rutina}}" class="btn btn-danger">ELIMINAR</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock content %}

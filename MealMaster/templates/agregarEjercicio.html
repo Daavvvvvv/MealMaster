@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr> 
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Grupo Muscular</th>
+            <th scope="col">Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for ejercicio in ejercicios %}
+        <tr>
+            <th scope="row">{{ ejercicio.id }}</th>
+            <td>{{ ejercicio.nombre }}</td>
+            <td>{{ ejercicio.calorias}}</td>
+            <td>{{ ejercicio.descripcion}}</td>
+            <td><a href="http://127.0.0.1:8000/modificarRutina/agregarEjercicio/{{ejercicio.id}}/{{rutina}}" class="btn btn-success">Agregar</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock content %}

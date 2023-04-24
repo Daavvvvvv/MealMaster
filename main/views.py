@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest
-from main.models import dieta
-from main.models import comidas
-from main.models import comidaDieta
+from main.models import comidas, dieta, comidaDieta, rutina, ejercicio, rutinaEjercicio
 from .forms import idForm
 
 def index(request):
@@ -37,14 +35,14 @@ def listarAlimentos(request, idDieta):
     return render(request, 'DescripcionComidas.html', {'alimentos': idComidas, 'comidas': comida, 'dieta': nombre})
 
 
-def agregarADieta(request, idDieta):
+def agregarADieta(request, idRutina):
     idComidas = []
     comidasNoDieta = []
     comida = mostrarComidas()
     dietacomidaquery = comidaDieta.objects.all()
     for i in dietacomidaquery:
         nombreDieta = str(i.dieta)
-        if nombreDieta == idDieta:
+        if nombreDieta == idRutina:
             idComidas.append(i.comida)
         else:
             pass
@@ -65,7 +63,7 @@ def agregarADieta(request, idDieta):
         else:
             cont = 0
 
-    return render(request, 'agregarComida.html', {'alimentos': comidasNoDieta, 'dieta': idDieta})
+    return render(request, 'agregarComida.html', {'alimentos': comidasNoDieta, 'dieta': idRutina})
 
 
 def agregarComida(request, idComida, idDieta):
@@ -111,15 +109,106 @@ def eliminarComida(request, idComida, idDieta):
     return render(request, 'comidaEliminada.html', {})
 
 
+def listarRutinas(request):
+    rutinas = mostrarRutinas()
+    return render(request, 'ListarRutinas.html', {'rutinas': rutinas})
+
+def listarEjercicios(request, idRutina):
+    ejercicios = mostrarEjercicios()
+    rutinas = mostrarRutinas()
+    nombre = ""
+    for i in rutinas:
+        nombreRutina = str(i.nombre)
+        if nombreRutina == idRutina:
+            nombre = nombreRutina
+            break
+    idEjercicio = []
+
+    RD = mostrarEjercicioRutina()
+
+    for i in RD:
+        objectRutina = i.rutina
+        nombreRutina = objectRutina.nombre
+        if nombreRutina == idRutina:
+            
+            idEjercicio.append(i.ejercicio)
+        else:
+            pass
+
+    return render(request, 'DescripcionEjercicios.html', {'ejercicios': idEjercicio, 'ejercicioNombre': ejercicios, 'rutina': nombre})
+
+def agregarARutina(request, idRutina):
+    idEjercicios = []
+    ejerciciosNoRutina = []
+    ejercicios = mostrarEjercicios()
+    RD = mostrarEjercicioRutina()
+    for i in RD:
+        objectRutina = i.rutina
+        nombreRutina = objectRutina.nombre
+        if nombreRutina == idRutina:
+            idEjercicios.append(i.ejercicio)
+        else:
+            pass
+    cont = 0
+    for i in ejercicios:
+        texto = str(i.nombre)
+        for j in idEjercicios:
+            texto1 = str(j.nombre)
+            if texto == texto1:
+                cont = cont + 1
+                break
+            else:
+                pass
+            if cont == 0:
+                ejerciciosNoRutina.append(i)
+                cont = 0
+            else:
+                cont = 0
+    
+
+    return render(request, 'agregarEjercicio.html', {'ejercicios': ejerciciosNoRutina, 'rutina': idRutina})
+
+def agregarEjercicio(request, idEjercicio, idRutina):
+    rutinas = mostrarRutinas()
+    rutinaID = None
+    for i in rutinas:
+        nombreDieta = str(i.nombre)
+        if nombreDieta == idRutina:
+            rutinaID = i.id
+            break
+    objRutina = rutina.objects.get(id=rutinaID)
+    objEjercicio = ejercicio.objects.get(id=idEjercicio)
+    RDInstance = rutinaEjercicio.objects.create(ejercicio=objEjercicio,rutina=objRutina)
+    RDInstance.save()
+    return render(request, 'ejercicioAgregado.html', {})
+
+def eliminarARutina(request, idRutina):
+    idEjercicios = []
+    RD = mostrarEjercicioRutina()
+
+    for i in RD:
+        objectRutina = i.rutina
+        nombreRutina = objectRutina.nombre
+        if nombreRutina== idRutina:
+            idEjercicios.append(i.ejercicio)
+        else:
+            pass
+
+    return render(request, 'eliminarEjercicio.html', {'ejercicios': idEjercicios,'rutina': idRutina})
 
 
-
-
-
-
-
-
-
+def eliminarEjercicio(request, idEjercicio, idRutina):
+    rutinas = mostrarRutinas()
+    rutinaID = None
+    for i in rutinas:
+        nombreRutina = str(i.nombre)
+        if nombreRutina == idRutina:
+            rutinaID = i.id
+            break
+    RDInstance = rutinaEjercicio.objects.get(ejercicio=idEjercicio,rutina=rutinaID)
+    RDInstance.delete()
+    print(RDInstance)
+    return render(request, 'ejercicioEliminado.html', {})
 
 
 
@@ -134,3 +223,15 @@ def mostrarDietas():
 def mostrarComidaDieta():
     CD = comidaDieta.objects.all()
     return CD
+
+def mostrarEjercicios():
+    ejercicios = ejercicio.objects.all()
+    return ejercicios
+
+def mostrarRutinas():
+    rutinas = rutina.objects.all()
+    return rutinas
+
+def mostrarEjercicioRutina():
+    RD = rutinaEjercicio.objects.all()
+    return RD

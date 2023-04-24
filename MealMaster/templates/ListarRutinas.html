@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<H1>Rutinas</H1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Ejercicios</th>
+        </tr>
+    
+    </thead>
+
+    <tbody>
+    {% for rutina in rutinas %}
+    
+        <tr>
+            <th scope="row">{{ rutina.id }}</th>
+            <td>{{ rutina.nombre }}</td>
+            <td>{{ rutina.descripcion }}</td>
+            <td><a href="ejercicios/{{rutina.nombre}}" class="btn btn-success">Ver ejercicios</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

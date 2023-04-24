@@ -29,5 +29,10 @@ urlpatterns = [
     path('modificarDieta/agregarComida/<str:idComida>/<str:idDieta>/', views.agregarComida, name="agregarComida"),
     path('modificarDieta/eliminarDieta/<str:idDieta>/', views.eliminarAdieta, name="eliminarAdieta"),
     path('modificarDieta/eliminarComida/<str:idComida>/<str:idDieta>/', views.eliminarComida, name="eliminarComida"),
-
+    path('rutinas/', views.listarRutinas, name='listarRutinas'),
+    path('rutinas/ejercicios/<str:idRutina>/', views.listarEjercicios, name='DescripcionEjercicios'),
+    path('modificarRutina/agregarRutina/<str:idRutina>/', views.agregarARutina, name="agregarARutina"),
+    path('modificarRutina/agregarEjercicio/<str:idEjercicio>/<str:idRutina>/', views.agregarEjercicio, name="agregarEjercicio"),
+    path('modificarRutina/eliminarRutina/<str:idRutina>/', views.eliminarARutina, name="eliminarARutina"),
+    path('modificarRutina/eliminarEjercicio/<str:idEjercicio>/<str:idRutina>/', views.eliminarEjercicio, name="eliminarEjercicio"),
 ] 
