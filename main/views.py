@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from main.models import comidas, dieta, comidaDieta, rutina, ejercicio, rutinaEjercicio
 from .forms import idForm
@@ -6,11 +6,12 @@ from .forms import idForm
 def index(request):
     return render(request, 'index.html', {})
 
-
 def listarDietas(request):
     dietas = dieta.objects.all()
     return render(request, 'ListarDietas.html', {'dietas': dietas})
 
+def registro(request):
+    return render(request, 'registration/registro')
 
 def listarAlimentos(request, idDieta):
     comida = mostrarComidas()

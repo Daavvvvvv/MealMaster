@@ -1,31 +1,43 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}MealMaster{% endblock  %}
+{% extends 'base.html' %} {% load static %} 
+{% block title %}MealMaster{%endblock %} 
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %} 
 
 {% block content %}
 
 <h1>Meal Master</h1>
 <h4>¡Mejora tu salud con nosotros!</h4>
 <header>
-    <nav>
-        <ul>    
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="{% url 'listarRutinas'%}">Trainings</a>
-            </li>
-            <li>
-                <a href="{% url 'listarDietas'%}">Meal plans</a>
-            </li>
-        </ul>
-    </nav>
+  <nav id="nav">
+    <ul>
+      <li>
+        <a href="#">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'listarRutinas'%}">Trainings</a>
+      </li>
+      <li>
+        <a href="{% url 'listarDietas'%}">Meal plans</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'logout' %}"> Cerrar Sesion </a>
+      </li>
+      <li>
+        <a href="#">@{{ user.username }}</a>
+      </li>
+      <li>
+        <a href="{% url 'registro' %}">Registrarse</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'login' %}">Iniciar Sesion</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
 </header>
 
-
-{% endblock  %}
+{% endblock %}
