@@ -39,14 +39,14 @@ def listarAlimentos(request, idDieta):
     return render(request, 'DescripcionComidas.html', {'alimentos': idComidas, 'comidas': comida, 'dieta': nombre})
 
 
-def agregarADieta(request, idRutina):
+def agregarADieta(request, idDieta):
     idComidas = []
     comidasNoDieta = []
     comida = mostrarComidas()
     dietacomidaquery = comidaDieta.objects.all()
     for i in dietacomidaquery:
         nombreDieta = str(i.dieta)
-        if nombreDieta == idRutina:
+        if nombreDieta == idDieta:
             idComidas.append(i.comida)
         else:
             pass
@@ -67,7 +67,7 @@ def agregarADieta(request, idRutina):
         else:
             cont = 0
 
-    return render(request, 'agregarComida.html', {'alimentos': comidasNoDieta, 'dieta': idRutina})
+    return render(request, 'agregarComida.html', {'alimentos': comidasNoDieta, 'dieta': idDieta})
 
 
 def agregarComida(request, idComida, idDieta):
@@ -164,8 +164,11 @@ def agregarARutina(request, idRutina):
             else:
                 pass
             if cont == 0:
-                ejerciciosNoRutina.append(i)
-                cont = 0
+                if i in ejerciciosNoRutina:
+                    cont = 0
+                else:
+                    ejerciciosNoRutina.append(i)
+                    cont = 0
             else:
                 cont = 0
     
@@ -193,7 +196,7 @@ def eliminarARutina(request, idRutina):
     for i in RD:
         objectRutina = i.rutina
         nombreRutina = objectRutina.nombre
-        if nombreRutina== idRutina:
+        if nombreRutina == idRutina:
             idEjercicios.append(i.ejercicio)
         else:
             pass
