@@ -36,5 +36,7 @@ urlpatterns = [
     path('modificarRutina/eliminarRutina/<str:idRutina>/', views.eliminarARutina, name="eliminarARutina"),
     path('modificarRutina/eliminarEjercicio/<str:idEjercicio>/<str:idRutina>/', views.eliminarEjercicio, name="eliminarEjercicio"),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('registro/', views.registro, name='registro')
+    path('registro/', views.registro, name='registro'),
+    path('chatGPT/<str:pregunta>/', views.chatGPT, name='chatGPT'),
+    path('preguntaChat/<str:respuesta>', views.preguntaChat, name='preguntaChat'),
 ] 

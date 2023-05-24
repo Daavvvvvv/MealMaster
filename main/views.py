@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from main.models import comidas, dieta, comidaDieta, rutina, ejercicio, rutinaEjercicio
-from .forms import idForm, CustomUserCreationForm
+from .forms import preguntas, CustomUserCreationForm
+import openai
+openai.api_key = "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"
 
 def index(request):
     return render(request, 'index.html', {})
@@ -218,6 +220,41 @@ def eliminarEjercicio(request, idEjercicio, idRutina):
     return render(request, 'ejercicioEliminado.html', {})
 
 
+def preguntaChat(request, respuesta):
+    texto = ''
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = preguntas(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            texto = form.cleaned_data
+            respuesta1 = texto['pregunta']
+            print(texto['pregunta'])
+            messages = [ {"role": "system", "content": "You are a intelligent assistant."} ]
+            message = respuesta1
+            if message:
+                messages.append(
+                    {"role": "user", "content": message},
+                )
+                chat = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo", messages=messages
+                )
+
+            reply = chat.choices[0].message.content
+            print(f"ChatGPT: {reply}")
+            messages.append({"role": "assistant", "content": reply})
+            return render(request, "preguntaChat.html",{"form": form, "ejemplo": reply})
+
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = preguntas()
+
+    return render(request, "preguntaChat.html",{"form": form, "ejemplo": texto})
+
+def chatGPT(request, pregunta):
+    print(pregunta)
+    return render(request, "chat.html", {"chat": pregunta})
 
 def mostrarComidas():
     comida = comidas.objects.all()

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-3">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Preguntar">
+    </form>
+</div>
+
+<h1> respuesta </h1>
+<p>{{ ejemplo }}</p>
+
+  {% endblock %}
