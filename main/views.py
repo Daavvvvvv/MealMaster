@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from main.models import comidas, dieta, comidaDieta, rutina, ejercicio, rutinaEjercicio
 from .forms import preguntas, CustomUserCreationForm
 import openai
-openai.api_key = "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"
+openai.api_key = "xxxxx"
 
 def index(request):
     return render(request, 'index.html', {})
